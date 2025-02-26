@@ -47,7 +47,7 @@ class _KindergartenListingPageState extends State<KindergartenListingPage> {
                 autofocus: true,
                 onChanged: kProvider.updateSearchQuery,
               )
-            : const Text("Search & Filter"),
+            : const Text("Kiddocare Kindergarten"),
         actions: [
           IconButton(
             icon: Icon(_isSearching ? Icons.close : Icons.search),
