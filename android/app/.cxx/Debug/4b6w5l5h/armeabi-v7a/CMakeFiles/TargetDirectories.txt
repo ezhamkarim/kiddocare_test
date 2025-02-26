@@ -1,0 +1,2 @@
+/Users/ezhamezzuddin/Documents/kiddocare_test/android/app/.cxx/Debug/4b6w5l5h/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/ezhamezzuddin/Documents/kiddocare_test/android/app/.cxx/Debug/4b6w5l5h/armeabi-v7a/CMakeFiles/rebuild_cache.dir
