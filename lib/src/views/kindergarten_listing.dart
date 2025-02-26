@@ -90,36 +90,14 @@ class _KindergartenListingPageState extends State<KindergartenListingPage> {
               child: CircularProgressIndicator.adaptive(),
             )
           : _isSearching
-              ? ListView.builder(
-                  itemCount: kProvider.filteredItems.length,
-                  itemBuilder: (_, i) {
-                    var item = kProvider.filteredItems[i];
-                    return KindergartenTile(
-                      kindergarten: item,
-                      onTap: () {
-                        context.pushRoute(
-                            KindergartenDetailsRoute(kindergarten: item));
-                      },
-                    );
-                  })
-              : RefreshIndicator(
-                  onRefresh: () => kProvider.getAll(page: 1),
+              ? Scrollbar(
+                  thumbVisibility: true,
+                  thickness: 10,
+                  radius: const Radius.circular(10),
                   child: ListView.builder(
-                      controller: scrollController,
-                      itemCount: kProvider.kindergartens.length +
-                          (kProvider.isLoading ? 1 : 0),
+                      itemCount: kProvider.filteredItems.length,
                       itemBuilder: (_, i) {
-                        var item = kProvider.kindergartens[i];
-
-                        if (i == kProvider.kindergartens.length) {
-                          return const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child:
-                                  CircularProgressIndicator(), // Loader at bottom
-                            ),
-                          );
-                        }
+                        var item = kProvider.filteredItems[i];
                         return KindergartenTile(
                           kindergarten: item,
                           onTap: () {
@@ -128,6 +106,38 @@ class _KindergartenListingPageState extends State<KindergartenListingPage> {
                           },
                         );
                       }),
+                )
+              : RefreshIndicator(
+                  onRefresh: () => kProvider.getAll(page: 1),
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    thickness: 10,
+                    radius: const Radius.circular(10),
+                    child: ListView.builder(
+                        controller: scrollController,
+                        itemCount: kProvider.kindergartens.length +
+                            (kProvider.isLoading ? 1 : 0),
+                        itemBuilder: (_, i) {
+                          var item = kProvider.kindergartens[i];
+
+                          if (i == kProvider.kindergartens.length) {
+                            return const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child:
+                                    CircularProgressIndicator(), // Loader at bottom
+                              ),
+                            );
+                          }
+                          return KindergartenTile(
+                            kindergarten: item,
+                            onTap: () {
+                              context.pushRoute(
+                                  KindergartenDetailsRoute(kindergarten: item));
+                            },
+                          );
+                        }),
+                  ),
                 ),
     );
   }
@@ -143,19 +153,22 @@ class _KindergartenListingPageState extends State<KindergartenListingPage> {
           content: SizedBox(
             width: 300,
             height: 400,
-            child: ListView(
-              shrinkWrap: true,
-              children: provider.malaysianStates.map((state) {
-                return RadioListTile(
-                  title: Text(state),
-                  value: state,
-                  groupValue: provider.selectedState,
-                  onChanged: (value) {
-                    provider.updateState(value!);
-                    Navigator.pop(context);
-                  },
-                );
-              }).toList(),
+            child: Scrollbar(
+              thumbVisibility: true,
+              child: ListView(
+                shrinkWrap: true,
+                children: provider.malaysianStates.map((state) {
+                  return RadioListTile(
+                    title: Text(state),
+                    value: state,
+                    groupValue: provider.selectedState,
+                    onChanged: (value) {
+                      provider.updateState(value!);
+                      Navigator.pop(context);
+                    },
+                  );
+                }).toList(),
+              ),
             ),
           ),
         );
