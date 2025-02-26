@@ -79,6 +79,7 @@ class KindergartenProvider extends ChangeNotifier {
     try {
       _state = ViewState.busy;
 
+      _selectedState = "All";
       _page = page ?? _page;
 
       var result = await _apiService

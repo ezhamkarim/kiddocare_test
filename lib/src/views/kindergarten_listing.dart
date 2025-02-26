@@ -61,27 +61,28 @@ class _KindergartenListingPageState extends State<KindergartenListingPage> {
               });
             },
           ),
-          Stack(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.filter_list),
-                onPressed: () => _showFilterDialog(context),
-              ),
-              if (kProvider.isFilterActive)
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: Container(
-                    width: 10,
-                    height: 10,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
+          if (_isSearching)
+            Stack(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.filter_list),
+                  onPressed: () => _showFilterDialog(context),
+                ),
+                if (kProvider.isFilterActive)
+                  Positioned(
+                    right: 10,
+                    top: 10,
+                    child: Container(
+                      width: 10,
+                      height: 10,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
                     ),
                   ),
-                ),
-            ],
-          ),
+              ],
+            ),
         ],
       ),
       body: kProvider.state == ViewState.busy
